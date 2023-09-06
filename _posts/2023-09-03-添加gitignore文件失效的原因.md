@@ -1,3 +1,14 @@
+---
+layout:     post
+title:      gitignore文件失效
+subtitle:   添加gitignore文件失效的原因
+date:       2023-09-03
+author:     Gavin
+header-img: img/post-bg-cook.jpg
+catalog: true
+tags:
+    - Git
+---
 https://lanxin1234.github.io/gitbookNote/git/gitignoreNOtinvaild.html
 #### 添加gitignore文件失效的原因
 

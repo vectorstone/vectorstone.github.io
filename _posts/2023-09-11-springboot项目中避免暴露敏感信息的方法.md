@@ -69,7 +69,7 @@ LOCAL_REDIS_PASSWORD=xxx
 
 # 方法通过jasypt加密工具来对用户名和密码进行加密
 [springboot配置文件中的配置项加密&jasypt的使用](https://blog.csdn.net/java_t_t/article/details/132242017)
-这种方式只能加密我们的用户名和密码,但是不能对ip地址加密再读取,会报错
+这种方式只能加密我们的用户名和密码,不能对ip地址加密再读取,会报错
 ## 系统环境变量里面设置加密使用的密钥
 设置完记得要重启idea或者是系统
 JASYPT_PASS

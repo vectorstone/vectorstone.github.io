@@ -112,6 +112,7 @@ NESTED嵌套事务,基于JDBC3.0中的savePoint技术实现的
 
 ![img](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/img/cc0e1357-7bb1-4a6f-9782-ec9a0e41d4e1.png)
 
+```java
 package org.springframework.beans.factory.support;  
 ...  
 public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {  
@@ -135,6 +136,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
     */  
     private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);  
 }
+```
 
 debug源代码过程
 
@@ -188,7 +190,7 @@ Spring解决循环依赖依靠的是Bean的"中间态"这个概念，而这个�
 
 可以查看selectlmports()方法中的内容;
 
-List<String> configurations = getCandidateConfigurations(annotationMetadata, attributes)  
+List< String > configurations = getCandidateConfigurations(annotationMetadata, attributes)  
 //获取候选的配置
 
 ![img](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/img/8ed7661e-aacf-47b8-a849-56c677b3c59f.png)扫描所有jar类路径下 META-INF/spring.factories ![img](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/img/dca5254f-8f8a-4490-bc66-16451a05ab9f.png)
@@ -197,11 +199,15 @@ List<String> configurations = getCandidateConfigurations(annotationMetadata, att
 
 每一个xxxAutoConfiguration类都是容器中的一个组件,均会被加载到容器中,用他们来实现自动配置3)、每一个自动配置类进行自动装配功能 以 HttpEncodingAutoConfiguration 为例解释
 
+```java
 @Configuration(proxyBeanMethods = false)  //声明该类是一个配置类  
 /**  
 启动指定类ServerProperties 的ConfigurationProperties功能  
 ConfigurationProperties的功能:将配置文件中对应的值和ServerProperties进行绑定 并将ServerProperties加入到spring容器中  
 */  
+```
+
+```java
 @EnableConfigurationProperties(ServerProperties.class)   
 /**  
 ConditionalOnXXX是有spring提供的一个@Condition注解 称之为条件注解 条件成立,整个配置文件中内容会生效  
@@ -232,6 +238,8 @@ public class HttpEncodingAutoConfiguration {
         filter.setForceResponseEncoding(this.properties.shouldForce(Encoding.Type.RESPONSE));  
         return filter;  
     }
+```
+
 
 一旦配置类生效,该配置类就会向容器中添加各种组件,这些组件的属性是从对应的properties类中获取的,该类中每一个属性都是和springboot配置文件绑定的
 
@@ -286,7 +294,6 @@ springboot常用注解
     
 - 使用#{}可以有效的防止SQL注入，提高系统安全性。
     
-
 一级缓存 二级缓存区别
 
 一级缓存：是基于数据库会话的，并且默认开启。一级缓存的作用域为SqlSession。在同一个SqlSession中，执行相同的sql语句，那么第一次就会去数据库中进行查询，并写到缓存中，如果我们后面还想去访问数据库查询，就直接去一级缓存中获取就可以了。

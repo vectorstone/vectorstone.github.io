@@ -505,6 +505,10 @@ sysUser.setPassword(encryptPassword);
 nohup java -jar /home/gavin/exercise/service-system.jar>springboot.log 2>&1 &
 ```
 
+```
+nohup java -jar /home/gavin/exercise/system-service.jar>springboot.log 2>&1 &
+```
+
 ```sh
 npm run build:prod # 打包的时候运行的命令
 npm run dev # 生产环境下的运行的命令

@@ -9,6 +9,17 @@ catalog: true
 tags:
   - 博客
 ---
+# 踩过的坑
+jdk的版本也会影响jasypt的使用
+使用jdk-8u152-linux-x64.tar.gz的时候会出现下面的问题
+1.8.0_292这个版本实测没有问题
+jdk-8u381-linux-x64.tar.gz这个版本实测也没有什么问题
+这也就解释了为什么idea上面运行的时候没有什么问题,但是到服务器上面部署之后就会出现问题的原因
+
+```
+Caused by: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.redis.password' to java.lang.String  
+   at org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:363)   at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:323)   at org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$4(Binder.java:447)   at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:92)   at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:80)   at org.springframework.boot.context.properties.bind.JavaBeanBinder.bind(JavaBeanBinder.java:56)   at org.springframework.boot.context.properties.bind.Binder.lambda$bindDataObject$5(Binder.java:451)   at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:571)   at org.springframework.boot.context.properties.bind.Binder$Context.withDataObject(Binder.java:557)   at org.springframework.boot.context.properties.bind.Binder$Context.access$300(Binder.java:512)   at org.springframework.boot.context.properties.bind.Binder.bindDataObject(Binder.java:449)   at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:390)   at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:319)   at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:308)   at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:238)   at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:225)   at org.springframework.boot.context.properties.ConfigurationPropertiesBinder.bind(ConfigurationPropertiesBinder.java:90)   at org.springframework.boot.context.properties.ConfigurationPropertiesBindingPostProcessor.bind(ConfigurationPropertiesBindingPostProcessor.java:89)   ... 134 common frames omitted
+```
 # 通过yml读取系统环境变量的方式
 [解决在项目开源中可能暴露敏感信息的问题](https://www.autumnclouds.cn/articles/178)
 这种方式不光可以避免在项目中暴露我们的用户名和密码,甚至可以避免暴露我们的服务器的ip地址

@@ -505,6 +505,7 @@ sysUser.setPassword(encryptPassword);
 nohup java -jar /home/gavin/exercise/service-system.jar>springboot.log 2>&1 &
 ```
 
+aliyun上面的服务的启动的命令
 ```
 nohup java -jar /home/gavin/exercise/system-service.jar>springboot.log 2>&1 &
 ```

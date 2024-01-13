@@ -42,6 +42,8 @@ https://lanxin1234.github.io/gitbookNote/git/gitignoreNOtinvaild.html
 	 git commit -m ''
 
 然后把本地的缓存删除，再提交一次。
+    git rm -r .\.idea\    
+    git rm -r -f .\.idea\  
 
 	 git rm -r cached .
 	 git add .

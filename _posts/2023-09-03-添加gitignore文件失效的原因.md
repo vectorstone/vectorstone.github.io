@@ -41,11 +41,11 @@ https://lanxin1234.github.io/gitbookNote/git/gitignoreNOtinvaild.html
 	 git add -A
 	 git commit -m ''
 
-然后把本地的缓存删除，再提交一次。
-    git rm -r .\.idea\    
-    git rm -r -f .\.idea\  
-
+然后把本地不想要的文件或文件夹的缓存删除，再提交一次。
+     git rm -r .\.idea\    
+     git rm -r -f .\.idea\  
 	 git rm -r cached .
+	
 	 git add .
 	 git commit -m "fixed untracked files"
 ```

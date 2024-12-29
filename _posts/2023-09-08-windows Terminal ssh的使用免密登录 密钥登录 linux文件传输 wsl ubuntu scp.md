@@ -97,11 +97,11 @@ function gmall { cd 'D:\OneDrive\AtGuiGu\07 Tutor Documents\08谷粒商城\gmall
 然后重新启动PowerShell就可以使用别名了
 
 # 问题
-![](imgs/Pasted%20image%2020231111103821.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020231111103821.png)
 
-![](imgs/Pasted%20image%2020231111105142.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020231111105142.png)
 
-![](imgs/Pasted%20image%2020231111105339.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020231111105339.png)
 
 ```json
 {

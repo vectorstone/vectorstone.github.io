@@ -13,7 +13,7 @@ tags:
 首先要有一台云服务器
 ## 确认OpenWrt上客户端的版本
 一般需要客户端的版本和服务端的版本最好是一致的,但是目前来看版本不一致的话也是可以使用的所以问题不大
-![](imgs/Pasted%20image%2020240203181352.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020240203181352.png)
 
 ## 下载frp客户端的软件
 windows里面设置排除病毒查杀的文件夹
@@ -25,9 +25,9 @@ github地址：[github.com/fatedier/frp](https://github.com/fatedier/frp) 下载
 uname -a
 ```
 
-![](imgs/Pasted%20image%2020231206225817.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020231206225817.png)
 
-![](imgs/Pasted%20image%2020231205224916.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020231205224916.png)
 0.52.3客户端的配置文件
 ```sh
 serverAddr = "服务器主机ip"
@@ -78,7 +78,7 @@ cd /opt/frp_0.54.0_linux_amd64
 ps -ef | grep frp
 ```
 出现下图的第一个证明已经启动成功了
-![](imgs/Pasted%20image%2020240203184753.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020240203184753.png)
 ## 开放云服务器相关的端口
 ```sh
 sudo ufw allow 8000/tcp
@@ -89,4 +89,4 @@ sudo ufw disable
 
 ## windows客户端的启用
 出现下面的这个图片说明已经启动ok了
-![](imgs/Pasted%20image%2020240203184826.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020240203184826.png)

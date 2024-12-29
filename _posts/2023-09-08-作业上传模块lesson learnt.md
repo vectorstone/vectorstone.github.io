@@ -464,7 +464,7 @@ handleCheckAllChange(val) {
 参考的文章:[Spring Boot 中密码加密的两种姿势](http://www.javaboy.org/2020/0521/springsecurity-passwordencoder.html)
 spring security里面提供了一个比加盐更加牛逼的密码加密器,具体的实现的步骤如下
 1.要将原有的实现的密码加密器注释掉
-![](imgs/Pasted%20image%2020230913201935.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020230913201935.png)
 2.新增一个密码加密器的配置类
 ```java
 @Configuration  
@@ -494,7 +494,7 @@ sysUser.setPassword(encryptPassword);
 4.实现的效果如下:
 这两个用户的明文的密码都是: 123456
 可以实现明文密码一样,但是加密出来的结果不一样
-![](imgs/Pasted%20image%2020230913202212.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020230913202212.png)
 
 还有另外的一种方式没有试过: 
 [SpringBoot Security密码加盐](https://cloud.tencent.com/developer/article/2198817)

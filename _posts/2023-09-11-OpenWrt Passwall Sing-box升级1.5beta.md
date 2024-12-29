@@ -19,10 +19,10 @@ tags:
 https://github.com/xiaorouji/openwrt-passwall/releases
 
 主要是下载这三个,注意看清楚自己的软路由的系统的架构,我的是x86的,每个人的可能有点不一样
-![](imgs/Pasted%20image%2020230916195906.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020230916195906.png)
 
 ## 解压这个依赖包
-![](imgs/Pasted%20image%2020230916200400.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020230916200400.png)
 
 ```sh
 & 'C:\Program Files\7-Zip\7z.exe' x .\passwall_packages_ipk_x86_64.zip -mcp=936
@@ -39,7 +39,7 @@ mkdir /tmp/passUpdate
 opkg install *.ipk
 ```
 
-![](imgs/Pasted%20image%2020230916202221.png)
+![](https://obsidiantuchuanggavin.oss-cn-beijing.aliyuncs.com/Pasted%20image%2020230916202221.png)
 
 出问题了,留个坑
 iStoreOS

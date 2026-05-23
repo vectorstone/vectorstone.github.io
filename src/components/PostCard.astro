@@ -1,0 +1,24 @@
+---
+import { formatDate, type BlogPost } from '../lib/posts';
+
+type Props = {
+  post: BlogPost;
+};
+
+const { post } = Astro.props;
+---
+
+<article class="post-card">
+  <div class="post-card__meta">
+    <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+    <span>{post.author}</span>
+  </div>
+  <h2><a href={`/blog/${encodeURIComponent(post.slug)}/`}>{post.title}</a></h2>
+  {post.subtitle && <p class="post-card__subtitle">{post.subtitle}</p>}
+  {post.excerpt && <p>{post.excerpt}</p>}
+  {post.tags.length > 0 && (
+    <div class="tag-list" aria-label="Tags">
+      {post.tags.slice(0, 5).map((tag) => <a href={`/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}
+    </div>
+  )}
+</article>

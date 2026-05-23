@@ -33,3 +33,6 @@ Temporary Items
 
 # debug file
 _site
+.astro
+dist
+node_modules

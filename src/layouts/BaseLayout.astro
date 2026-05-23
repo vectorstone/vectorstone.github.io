@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const siteTitle = 'Gavin Blog';
+const { title = siteTitle, description = 'Doubt is the key to knowledge.' } = Astro.props;
+const pageTitle = title === siteTitle ? siteTitle : `${title} | ${siteTitle}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/img/favicon.ico" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Gavin Blog</a>
+      <nav aria-label="Primary navigation">
+        <a href="/">文章</a>
+        <a href="/about/">关于</a>
+        <a href="https://github.com/vectorstone" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <span>© {new Date().getFullYear()} Gavin</span>
+      <span>Powered by Astro and GitHub Pages</span>
+    </footer>
+  </body>
+</html>

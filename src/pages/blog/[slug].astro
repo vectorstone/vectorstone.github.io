@@ -1,0 +1,44 @@
+---
+import { marked } from 'marked';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate, getAllPosts, getPostBySlug } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const post = await getPostBySlug(Astro.params.slug || '');
+
+if (!post) {
+  return Astro.redirect('/404.html');
+}
+
+const html = marked.parse(post.body, {
+  async: false,
+  gfm: true,
+  breaks: false,
+});
+---
+
+<BaseLayout title={post.title} description={post.excerpt}>
+  <article class="article">
+    <header class="article-header">
+      <a class="back-link" href="/">← 返回文章列表</a>
+      <div class="post-card__meta">
+        <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+        <span>{post.author}</span>
+      </div>
+      <h1>{post.title}</h1>
+      {post.subtitle && <p>{post.subtitle}</p>}
+      {post.tags.length > 0 && (
+        <div class="tag-list" aria-label="Tags">
+          {post.tags.map((tag) => <span>{tag}</span>)}
+        </div>
+      )}
+    </header>
+    <div class="prose" set:html={html} />
+  </article>
+</BaseLayout>

@@ -27,7 +27,7 @@ const html = marked.parse(post.body, {
   <article class="article">
     <header class="article-header">
       <a class="back-link" href="/">← 返回文章列表</a>
-      <div class="post-card__meta">
+      <div class="article-meta">
         <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
         <span>{post.author}</span>
       </div>

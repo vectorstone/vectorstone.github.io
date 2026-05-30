@@ -34,7 +34,7 @@ function normalizeDate(value: unknown, fileName: string) {
 
 function slugify(fileName: string) {
   const base = fileName.replace(/\.mdx?$/i, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
-  return base.replace(/\s+/g, '-').replace(/[\\/]/g, '-');
+  return base.replace(/[,\s()（）]+/g, '-').replace(/[\\/]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
 }
 
 function normalizeTags(tags: unknown) {

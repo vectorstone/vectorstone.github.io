@@ -1,4 +1,91 @@
+# Gavin Blog
 
+## 本地开发与最终视觉验收
+
+当前博客已经迁移为 Astro 静态站点，文章内容仍来自 `_posts/` Markdown 文件。
+
+### 1. 安装依赖
+
+首次本地运行，或依赖变更后执行：
+
+```bash
+npm install
+```
+
+### 2. 启动本地开发服务器
+
+用于日常开发调试，支持热更新：
+
+```bash
+npm run dev
+```
+
+启动后在浏览器打开 Astro 输出的本地地址，通常是：
+
+```text
+http://localhost:4321/
+```
+
+如果需要显式指定 host 和端口：
+
+```bash
+npm run dev -- --host 127.0.0.1 --port 4321
+```
+
+### 3. 生产构建验证
+
+提交或发布前先确认静态构建可以通过：
+
+```bash
+npm run build
+```
+
+### 4. 本地预览生产构建
+
+用于更接近 GitHub Pages 发布效果的最终验收：
+
+```bash
+npm run preview
+```
+
+然后打开命令行输出的预览地址，通常仍是：
+
+```text
+http://localhost:4321/
+```
+
+### 5. 推荐视觉验收页面
+
+重点检查首页、关于页、代码较多的文章页、图片较多的文章页：
+
+```text
+/
+/about/
+/blog/windows-Terminal-ssh的使用免密登录-密钥登录-linux文件传输-wsl-ubuntu-scp/
+/blog/Centos7-VMware虚拟机根分区扩容/
+```
+
+### 6. 推荐视口尺寸
+
+最终视觉验收建议至少检查：
+
+- Desktop：`1440 × 900`
+- Mobile：`390 × 844`
+
+检查重点：
+
+- 首页第一屏是否有高级个人品牌感
+- 文章页长文阅读是否舒适
+- 代码块是否可以横向滚动且不撑破页面
+- 图片是否响应式缩放
+- 导航、标签、卡片、页脚是否属于同一套视觉系统
+- 移动端是否没有横向溢出
+
+---
+
+## 历史说明
+
+以下内容主要来自旧版 Jekyll/Hux 主题时期，仅作为历史参考保留。
 
 ![](https://raw.githubusercontent.com/qiubaiying/qiubaiying.github.io/master/img/readme-home.png)
 

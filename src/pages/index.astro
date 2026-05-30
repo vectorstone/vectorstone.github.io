@@ -5,30 +5,58 @@ import { getAllPosts } from '../lib/posts';
 
 const posts = await getAllPosts();
 const tags = Array.from(new Set(posts.flatMap((post) => post.tags))).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+const latestPost = posts[0];
 ---
 
 <BaseLayout title="Gavin Blog" description="Gavin 的技术博客和折腾记录">
   <section class="hero">
     <div>
-      <p class="eyebrow">Tech notes / Linux / OpenWrt / Dev tools</p>
-      <h1>把日常折腾沉淀成可检索的技术笔记。</h1>
+      <p class="eyebrow">Personal technical field notes</p>
+      <h1>Hack relentlessly, ship relentlessly.</h1>
       <p>
-        这里整理 Linux、OpenWrt、开发工具、Docker 和个人项目实践。内容来自 Obsidian 笔记库，
-        通过 GitHub Pages 自动发布。
+        我在这里记录 Linux、OpenWrt、开发工具、Docker 和个人项目实践。它不是速食教程，
+        而是一份持续生长、方便回看、也能被别人检索到的技术档案。
       </p>
+      <div class="hero-actions" aria-label="Featured actions">
+        <a href={latestPost ? `/blog/${encodeURIComponent(latestPost.slug)}/` : '#articles'}>阅读最新文章</a>
+        <a href="/about/">了解 Gavin</a>
+      </div>
     </div>
     <aside class="hero-panel" aria-label="Blog summary">
-      <span>{posts.length}</span>
-      <p>published notes</p>
+      <div>
+        <p class="hero-panel__label">Published notes</p>
+        <span>{posts.length}</span>
+        <p>来自 Obsidian 的技术笔记，经 Astro 构建并发布到 GitHub Pages。</p>
+      </div>
+      <div class="hero-panel__meta" aria-label="Blog topics">
+        <div>
+          <strong>Linux</strong>
+          <small>系统与命令</small>
+        </div>
+        <div>
+          <strong>OpenWrt</strong>
+          <small>网络与折腾</small>
+        </div>
+      </div>
     </aside>
   </section>
 
-  <section class="content-grid">
-    <div class="post-list">
-      {posts.map((post) => <PostCard post={post} />)}
+  <section class="content-grid" id="articles">
+    <div>
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Archive</p>
+          <h2>最近写下的技术记录</h2>
+        </div>
+        <p>按时间倒序排列，保留问题现场、解决路径和踩坑细节。</p>
+      </div>
+      <div class="post-list">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
     </div>
     <aside class="sidebar">
       <h2>Tags</h2>
+      <p>用标签快速回到某类问题现场。</p>
       <div class="tag-cloud">
         {tags.map((tag) => <a href={`/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}
       </div>

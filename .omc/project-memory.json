@@ -1,0 +1,336 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1780154743683,
+  "projectRoot": "/home/gavin/Documents/Obsidian/04 blog/vectorstone.github.io",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "astro",
+        "version": "6.3.7",
+        "category": "fullstack"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "astro dev",
+      "build": "astro build",
+      "preview": "astro preview",
+      "copy-note": "node scripts/copy-note-to-post.mjs"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs",
+      "public",
+      "scripts",
+      "src"
+    ],
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "_includes": {
+      "path": "_includes",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1780154743668,
+      "keyFiles": [
+        "footer.html",
+        "head.html",
+        "nav.html"
+      ]
+    },
+    "_layouts": {
+      "path": "_layouts",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1780154743669,
+      "keyFiles": [
+        "default.html",
+        "keynote.html",
+        "page.html",
+        "post.html"
+      ]
+    },
+    "_posts": {
+      "path": "_posts",
+      "purpose": null,
+      "fileCount": 25,
+      "lastAccessed": 1780154743675,
+      "keyFiles": [
+        "2023-06-29-Centos7 VMware虚拟机根分区扩容.md",
+        "2023-08-07-linux常用命令.md",
+        "2023-09-03-添加gitignore文件失效的原因.md",
+        "2023-09-06-Jekyll博客本地部署及使用.md",
+        "2023-09-07家庭账单项目使用guideline.md"
+      ]
+    },
+    "css": {
+      "path": "css",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1780154743679,
+      "keyFiles": [
+        "bootstrap.css",
+        "bootstrap.min.css",
+        "hux-blog.css",
+        "hux-blog.min.css",
+        "syntax.css"
+      ]
+    },
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 4,
+      "lastAccessed": 1780154743679,
+      "keyFiles": [
+        "CNAME",
+        "index.html",
+        "sitemap-0.xml",
+        "sitemap-index.xml"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 1,
+      "lastAccessed": 1780154743680,
+      "keyFiles": [
+        "obsidian-publishing.md"
+      ]
+    },
+    "fonts": {
+      "path": "fonts",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1780154743680,
+      "keyFiles": [
+        "glyphicons-halflings-regular.eot",
+        "glyphicons-halflings-regular.ttf",
+        "glyphicons-halflings-regular.woff",
+        "glyphicons-halflings-regular.woff2"
+      ]
+    },
+    "img": {
+      "path": "img",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1780154743680,
+      "keyFiles": [
+        "favicon.ico"
+      ]
+    },
+    "js": {
+      "path": "js",
+      "purpose": null,
+      "fileCount": 10,
+      "lastAccessed": 1780154743681,
+      "keyFiles": [
+        "animatescroll.min.js",
+        "bootstrap.js",
+        "bootstrap.min.js",
+        "hux-blog.js",
+        "hux-blog.min.js"
+      ]
+    },
+    "less": {
+      "path": "less",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1780154743681,
+      "keyFiles": [
+        "hux-blog.less",
+        "mixins.less",
+        "side-catalog.less",
+        "sidebar.less",
+        "variables.less"
+      ]
+    },
+    "public": {
+      "path": "public",
+      "purpose": "Public files",
+      "fileCount": 1,
+      "lastAccessed": 1780154743681,
+      "keyFiles": [
+        "CNAME"
+      ]
+    },
+    "pwa": {
+      "path": "pwa",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1780154743682,
+      "keyFiles": [
+        "manifest.json"
+      ]
+    },
+    "scripts": {
+      "path": "scripts",
+      "purpose": "Build/utility scripts",
+      "fileCount": 1,
+      "lastAccessed": 1780154743682,
+      "keyFiles": [
+        "copy-note-to-post.mjs"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 0,
+      "lastAccessed": 1780154743682,
+      "keyFiles": []
+    },
+    "src/components": {
+      "path": "src/components",
+      "purpose": "UI components",
+      "fileCount": 1,
+      "lastAccessed": 1780154743683,
+      "keyFiles": [
+        "PostCard.astro"
+      ]
+    },
+    "src/lib": {
+      "path": "src/lib",
+      "purpose": "Library code",
+      "fileCount": 2,
+      "lastAccessed": 1780154743683,
+      "keyFiles": [
+        "obsidian.ts",
+        "posts.ts"
+      ]
+    },
+    "src/pages": {
+      "path": "src/pages",
+      "purpose": "Page components",
+      "fileCount": 2,
+      "lastAccessed": 1780154743683,
+      "keyFiles": [
+        "about.astro",
+        "index.astro"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/styles/global.css",
+      "accessCount": 5,
+      "lastAccessed": 1780159469093,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/blog/[slug].astro",
+      "accessCount": 5,
+      "lastAccessed": 1780159492163,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/posts.ts",
+      "accessCount": 4,
+      "lastAccessed": 1780159197494,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/index.astro",
+      "accessCount": 3,
+      "lastAccessed": 1780159213129,
+      "type": "file"
+    },
+    {
+      "path": "astro.config.mjs",
+      "accessCount": 2,
+      "lastAccessed": 1780159193742,
+      "type": "file"
+    },
+    {
+      "path": "src/layouts/BaseLayout.astro",
+      "accessCount": 2,
+      "lastAccessed": 1780159401227,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1780159194176,
+      "type": "file"
+    },
+    {
+      "path": "src/components/PostCard.astro",
+      "accessCount": 1,
+      "lastAccessed": 1780159197372,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/obsidian.ts",
+      "accessCount": 1,
+      "lastAccessed": 1780159198210,
+      "type": "file"
+    },
+    {
+      "path": "src/pages/about.astro",
+      "accessCount": 1,
+      "lastAccessed": 1780159213728,
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "accessCount": 1,
+      "lastAccessed": 1780159214755,
+      "type": "file"
+    },
+    {
+      "path": "_config.yml",
+      "accessCount": 1,
+      "lastAccessed": 1780159215533,
+      "type": "file"
+    },
+    {
+      "path": "css/syntax.css",
+      "accessCount": 1,
+      "lastAccessed": 1780159234202,
+      "type": "file"
+    },
+    {
+      "path": "scripts/copy-note-to-post.mjs",
+      "accessCount": 1,
+      "lastAccessed": 1780159235218,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

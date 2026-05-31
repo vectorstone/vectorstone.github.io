@@ -663,8 +663,9 @@ nav {
 }
 
 .prose pre {
+  position: relative;
   max-width: 100%;
-  padding: 20px;
+  padding: 20px 48px 20px 20px;
   margin: 1.45rem 0;
   overflow-x: auto;
   color: var(--code-text);
@@ -674,6 +675,60 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: var(--radius-md);
   box-shadow: 0 20px 48px rgba(23, 32, 29, 0.18);
+}
+
+/* Code copy button */
+.code-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  color: rgba(243, 234, 215, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transition: color 0.2s, background 0.2s, opacity 0.2s;
+}
+
+.prose pre:hover .code-copy {
+  opacity: 1;
+}
+
+.code-copy:hover {
+  color: rgba(243, 234, 215, 0.85);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.code-copy:active {
+  transform: scale(0.92);
+}
+
+.code-copy.copied {
+  color: #4ade80;
+  opacity: 1;
+}
+
+.code-copy svg {
+  width: 16px;
+  height: 16px;
+}
+
+.code-copy .icon-check {
+  display: none;
+}
+
+.code-copy.copied .icon-copy {
+  display: none;
+}
+
+.code-copy.copied .icon-check {
+  display: block;
 }
 
 .prose pre code {
@@ -861,10 +916,18 @@ nav {
   }
 
   .prose pre {
-    padding: 16px;
+    padding: 16px 42px 16px 16px;
     margin-right: -4px;
     margin-left: -4px;
     border-radius: 14px;
+  }
+
+  .code-copy {
+    opacity: 1;
+    top: 8px;
+    right: 8px;
+    padding: 5px;
+    border-radius: 6px;
   }
 }
 

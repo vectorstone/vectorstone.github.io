@@ -86,7 +86,7 @@ RDP 端口: 3389
 WinApps 安装方式: user install
 WinApps backend: manual
 FreeRDP: 3.26.0
-FreeRDP 路径: /home/linuxbrew/.linuxbrew/bin/xfreerdp
+FreeRDP 路径: /usr/bin/xfreerdp3
 netcat: GNU netcat 0.7.1
 netcat 路径: /home/linuxbrew/.linuxbrew/bin/nc
 dialog: 1.3-20260107
@@ -228,7 +228,7 @@ RDP_PORT="3389"
 WAFLAVOR="manual"
 RDP_SCALE="100"
 
-RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
 RDP_FLAGS_NON_WINDOWS=""
 RDP_FLAGS_WINDOWS=""
 
@@ -236,7 +236,7 @@ DEBUG="true"
 AUTOPAUSE="off"
 AUTOPAUSE_TIME="300"
 
-FREERDP_COMMAND="/home/linuxbrew/.linuxbrew/bin/xfreerdp"
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
 
 PORT_TIMEOUT="5"
 RDP_TIMEOUT="30"
@@ -546,7 +546,7 @@ FreeRDP 里左 Ctrl / 左 Alt 对应的 scancode 是：
 最终写进 `RDP_FLAGS`：
 
 ```ini
-RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
 ```
 
 注意这里要使用短 scancode：
@@ -624,13 +624,13 @@ Command line parsing failed at 'kbd'
 强制使用已验证可用的 `xfreerdp`：
 
 ```ini
-FREERDP_COMMAND="/home/linuxbrew/.linuxbrew/bin/xfreerdp"
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
 ```
 
 并把 remap 改成短 scancode：
 
 ```ini
-RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
 ```
 
 为了不再看到默认 removable media 的提示，也可以显式写上：
@@ -965,7 +965,7 @@ RDP_SCALE="100"
 
 # /cert:tofu trusts first seen cert; +home-drive exposes Linux $HOME as \\tsclient\home.
 # /kbd remap keeps left Ctrl/Alt behavior consistent with Omarchy ctrl:swap_lalt_lctl.
-RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
 RDP_FLAGS_NON_WINDOWS=""
 RDP_FLAGS_WINDOWS=""
 
@@ -973,8 +973,8 @@ DEBUG="true"
 AUTOPAUSE="off"
 AUTOPAUSE_TIME="300"
 
-# Homebrew installed FreeRDP 3.26.0 on this machine.
-FREERDP_COMMAND="/home/linuxbrew/.linuxbrew/bin/xfreerdp"
+# Arch pacman installed FreeRDP 3.26.0 on this machine.
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
 
 PORT_TIMEOUT="5"
 RDP_TIMEOUT="30"
@@ -1118,6 +1118,220 @@ exec "$real_nc" "$@"
 
 唯一不应该展示的是实际 Windows 登录密码；文章中只保留了密码文件路径和读取方式。
 
+
+# 问题 6：WinApps 里面没有声音
+
+## 现象
+
+Windows 窗口可以正常打开，键盘输入也已经修好，但是 WinApps / Windows 会话里播放视频或系统声音时，Linux 这边听不到声音。
+
+当时的 WinApps 配置是：
+
+```ini
+FREERDP_COMMAND="/home/linuxbrew/.linuxbrew/bin/xfreerdp"
+RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+```
+
+## 排查过程
+
+先确认 Linux 本机音频栈是正常的：
+
+```bash
+systemctl --user status pipewire pipewire-pulse wireplumber
+pactl info
+wpctl status
+```
+
+本机状态：
+
+```text
+pipewire.service active
+pipewire-pulse.service active
+wireplumber.service active
+Server Name: PulseAudio (on PipeWire 1.6.5)
+Default Sink: alsa_output.pci-0000_00_1f.3.analog-stereo
+```
+
+也就是说，Linux 桌面本身不是没有声音，PipeWire / PulseAudio 兼容层都在工作。
+
+再看 FreeRDP 的音频支持：
+
+```bash
+xfreerdp /help | grep -i -E 'sound|audio|alsa|pulse'
+```
+
+Homebrew 版 FreeRDP 显示可用的音频输出主要是：
+
+```text
+Audio Output Redirection: /sound:sys:oss,dev:1,format:1
+Audio Output Redirection: /sound:sys:alsa
+```
+
+安装时的 FreeRDP 日志里也能看到它加载过 ALSA 后端：
+
+```text
+Loaded alsa backend for rdpsnd
+Loading Dynamic Virtual Channel rdpsnd
+```
+
+但是关键问题在这里：
+
+```bash
+ldd /home/linuxbrew/.linuxbrew/bin/xfreerdp | grep -i -E 'asound|pulse|pipewire'
+```
+
+Homebrew 版 `xfreerdp` 链接的是 Homebrew 自己的 ALSA 库：
+
+```text
+libasound.so.2 => /home/linuxbrew/.linuxbrew/opt/alsa-lib/lib/libasound.so.2
+```
+
+而系统的 PipeWire ALSA 配置在 Arch 系统路径里：
+
+```text
+pipewire-alsa 1:1.6.5-1
+/usr/share/alsa/alsa.conf.d/50-pipewire.conf
+/usr/share/alsa/alsa.conf.d/99-pipewire-default.conf
+```
+
+所以推断是：Homebrew FreeRDP 虽然开启了 `/sound`，也加载了 ALSA backend，但是它使用的 Homebrew `alsa-lib` 没有稳定进入系统 PipeWire 的默认音频链路，导致 RDP 声音没有实际输出到桌面默认声卡。
+
+## 中间调整过的依赖包
+
+一开始为了绕开 sudo，装的是 Homebrew 版本：
+
+```bash
+brew install freerdp netcat dialog
+```
+
+对应版本：
+
+```text
+freerdp 3.26.0
+netcat 0.7.1
+dialog 1.3-20260107
+```
+
+为了解决声音问题，改为安装 Arch 官方仓库里的 FreeRDP：
+
+```bash
+sudo pacman -S --needed freerdp
+```
+
+当时 pacman 实际安装/补齐的包包括：
+
+```text
+freerdp 2:3.26.0-1
+libcbor 0.14.0-1
+libfido2 1.17.0-1
+sdl3_ttf 3.2.2-3
+```
+
+系统中和音频相关、已经存在并参与工作的包：
+
+```text
+pipewire-alsa 1:1.6.5-1
+alsa-utils 1.2.15.2-2
+```
+
+安装完成后，Arch 官方 FreeRDP 的实际命令不是 `/usr/bin/xfreerdp`，而是：
+
+```bash
+/usr/bin/xfreerdp3
+/usr/bin/sdl-freerdp3
+```
+
+验证：
+
+```bash
+/usr/bin/xfreerdp3 --version
+```
+
+输出：
+
+```text
+This is FreeRDP version 3.26.0 (3f6d7cb1f)
+```
+
+再看链接库：
+
+```bash
+ldd /usr/bin/xfreerdp3 | grep -i -E 'asound|pulse|pipewire'
+```
+
+结果：
+
+```text
+libasound.so.2 => /usr/lib/libasound.so.2
+libpulse.so.0 => /usr/lib/libpulse.so.0
+libpulsecommon-17.0.so => /usr/lib/pulseaudio/libpulsecommon-17.0.so
+```
+
+这说明系统版 FreeRDP 使用的是 Arch 系统音频库，可以正常接入 PipeWire / PulseAudio 兼容层。
+
+## 最终解决办法
+
+把 WinApps 配置从 Homebrew FreeRDP 切到 Arch 官方 FreeRDP：
+
+```ini
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
+```
+
+同时不要只写泛化的 `/sound`，而是明确使用 ALSA default。由于当前系统安装了 `pipewire-alsa`，`default` 会进入 PipeWire：
+
+```ini
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+```
+
+完整关键配置变成：
+
+```ini
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+```
+
+然后重启 WinApps 会话：
+
+```bash
+winapps killrdp
+winapps windows
+```
+
+## 验证结果
+
+启动后实际进程已经变成系统版 FreeRDP：
+
+```text
+/usr/bin/xfreerdp3 /cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d ...
+```
+
+播放 Windows 里的声音时，Linux 侧能看到 PipeWire sink input：
+
+```bash
+pactl list short sink-inputs
+```
+
+输出类似：
+
+```text
+162  64  161  PipeWire  s16le 2ch 44100Hz
+```
+
+实际测试结果：WinApps 里面的声音可以听到了。
+
+## 这个问题的结论
+
+这次无声音不是 Windows 端没开声音，也不是 WinApps 没传 `/sound`，而是 Homebrew 版 FreeRDP 的音频库链路和当前 Arch / PipeWire 环境不够匹配。
+
+稳定方案是：
+
+```ini
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+```
+
+Homebrew 版 `freerdp` 可以暂时保留作为回滚，但 WinApps 实际使用系统版 `/usr/bin/xfreerdp3`。
+
 # 最终验证
 
 最终启动：
@@ -1138,10 +1352,9 @@ xwayland: 1
 对应的 FreeRDP 进程：
 
 ```text
-/home/linuxbrew/.linuxbrew/bin/xfreerdp \
+/usr/bin/xfreerdp3 \
   /cert:tofu \
-  /sound \
-  /microphone \
+  /sound:sys:alsa,dev:default \
   +home-drive \
   /kbd:remap:0x1d=0x38,remap:0x38=0x1d \
   /d: \
@@ -1219,8 +1432,8 @@ WinApps 在 Arch + Omarchy + Hyprland 上是可以跑通的，但它不是完全
 
 ```ini
 WAFLAVOR="manual"
-FREERDP_COMMAND="/home/linuxbrew/.linuxbrew/bin/xfreerdp"
-RDP_FLAGS="/cert:tofu /sound /microphone +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
+FREERDP_COMMAND="/usr/bin/xfreerdp3"
+RDP_FLAGS="/cert:tofu /sound:sys:alsa,dev:default +home-drive /kbd:remap:0x1d=0x38,remap:0x38=0x1d"
 REMOVABLE_MEDIA="/run/media"
 ```
 
